@@ -1,5 +1,6 @@
 package com.journaldev.retrofitintro;
 
+import com.journaldev.retrofitintro.pojo.FacilityPojo.FacilityList;
 import com.journaldev.retrofitintro.pojo.MultipleResource;
 import com.journaldev.retrofitintro.pojo.User;
 import com.journaldev.retrofitintro.pojo.UserList;
@@ -19,18 +20,7 @@ import retrofit2.http.Query;
 
 interface APIInterface {
 
-    String unknownCall = "/api/unknown";
+    @GET("facility/list/10002/member_02/null")
+    Call<FacilityList> getFacilityDetails(@Header("Authorization") String authorization, @Header("userid") String userID,  @Header("Accept") String acceptType,  @Header("is_api") Boolean isAPI,  @Header("tenantId") String tenantID, @Header("Content-Type") String contentType);
 
-    @GET(unknownCall)
-    Call<MultipleResource> doGetListResources(@Header("Authorization") String authorization);
-
-    @POST("/api/users")
-    Call<User> createUser(@Body User user);
-
-    @GET("/api/users?")
-    Call<UserList> doGetUserList(@Query("page") String page);
-
-    @FormUrlEncoded
-    @POST("/api/users?")
-    Call<UserList> doCreateUserWithField(@Field("name") String name, @Field("job") String job);
 }

@@ -2,6 +2,7 @@ package com.journaldev.retrofitintro;
 
 import android.util.Log;
 
+import com.journaldev.retrofitintro.pojo.FacilityPojo.FacilityList;
 import com.journaldev.retrofitintro.pojo.MultipleResource;
 
 import java.util.List;
@@ -28,24 +29,24 @@ public class FetchUserData {
     }
 
 
-    public void getAllDetails(final ResultHandler<MultipleResource> handler) {
+    public void getAllDetails(final ResultHandler<FacilityList> handler) {
 
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
-        Call<MultipleResource> call = apiInterface.doGetListResources("123456");
+        Call<FacilityList> call = apiInterface.getFacilityDetails("Bearer 48faf3b0-fc81-3de0-8be6-8c34831032d2", "member_02","application/json",true,"10002","application/json");//doGetListResources("123456","edfas");
 
 
-        call.enqueue(new Callback<MultipleResource>() {
+        call.enqueue(new Callback<FacilityList>() {
 
             @Override
-            public void onResponse(Call<MultipleResource> call, Response<MultipleResource> response) {
-                MultipleResource resource = response.body();
+            public void onResponse(Call<FacilityList> call, Response<FacilityList> response) {
+                FacilityList resource = response.body();
                 handler.onSuccess(resource);
 
             }
 
             @Override
-            public void onFailure(Call<MultipleResource> call, Throwable t) {
+            public void onFailure(Call<FacilityList> call, Throwable t) {
                 call.cancel();
                 handler.onFailure(t);
             }
